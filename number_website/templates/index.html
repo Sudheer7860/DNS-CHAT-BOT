@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Information - Discover Mathematical Properties</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔢 Number Explorer</h1>
+            <p class="subtitle">Discover fascinating mathematical properties of any number</p>
+        </header>
+
+        <div class="search-box">
+            {% if error %}
+            <div class="error">{{ error }}</div>
+            {% endif %}
+
+            <form class="search-form" method="POST" action="/search">
+                <input 
+                    type="number" 
+                    name="number" 
+                    class="search-input" 
+                    placeholder="Enter any number..." 
+                    required
+                    autofocus
+                >
+                <button type="submit" class="search-button">Explore</button>
+            </form>
+
+            <div class="quick-links">
+                <span style="color: #666; margin-right: 10px;">Try these:</span>
+                <a href="/number/7" class="quick-link">7</a>
+                <a href="/number/42" class="quick-link">42</a>
+                <a href="/number/100" class="quick-link">100</a>
+                <a href="/number/153" class="quick-link">153</a>
+                <a href="/number/496" class="quick-link">496</a>
+                <a href="/number/1729" class="quick-link">1729</a>
+                <a href="/number/2024" class="quick-link">2024</a>
+            </div>
+        </div>
+
+        <div class="result-container">
+            <div class="section">
+                <h3>✨ What You'll Discover</h3>
+                <div class="properties-grid">
+                    <div class="property-card">
+                        <div class="property-label">Mathematical Properties</div>
+                        <div class="property-value">Prime, Perfect, Armstrong, Palindrome</div>
+                    </div>
+                    <div class="property-card">
+                        <div class="property-label">Number Systems</div>
+                        <div class="property-value">Binary, Octal, Hexadecimal, Roman</div>
+                    </div>
+                    <div class="property-card">
+                        <div class="property-label">Factorization</div>
+                        <div class="property-value">All factors and prime factorization</div>
+                    </div>
+                    <div class="property-card">
+                        <div class="property-label">Fun Facts</div>
+                        <div class="property-value">Interesting mathematical trivia</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h3>📚 About Number Properties</h3>
+                <ul class="facts-list">
+                    <li class="fact-item">
+                        <strong>Prime Numbers:</strong> Numbers greater than 1 that have no divisors other than 1 and themselves (e.g., 2, 3, 5, 7, 11)
+                    </li>
+                    <li class="fact-item">
+                        <strong>Perfect Numbers:</strong> Numbers equal to the sum of their proper divisors (e.g., 6 = 1 + 2 + 3)
+                    </li>
+                    <li class="fact-item">
+                        <strong>Armstrong Numbers:</strong> Numbers equal to the sum of their digits raised to the power of the number of digits (e.g., 153 = 1³ + 5³ + 3³)
+                    </li>
+                    <li class="fact-item">
+                        <strong>Fibonacci Sequence:</strong> A sequence where each number is the sum of the two preceding ones (0, 1, 1, 2, 3, 5, 8, 13...)
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number {{ info.number }} - Information</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔢 Number Explorer</h1>
+            <p class="subtitle">Mathematical properties and interesting facts</p>
+        </header>
+
+        <div class="result-container">
+            <div class="number-display">
+                <h2>{{ info.number }}</h2>
+                <p>{{ "Positive" if info.is_positive else "Negative" if info.is_negative else "Zero" }} 
+                   {{ "Even" if info.is_even else "Odd" }} Number</p>
+            </div>
+
+            <div class="section">
+                <h3>🎯 Mathematical Properties</h3>
+                <div class="properties-grid">
+                    <div class="property-card">
+                        <div class="property-label">Prime Number</div>
+                        <div class="property-value {{ 'true' if info.is_prime else 'false' }}">
+                            {{ "Yes ✓" if info.is_prime else "No ✗" }}
+                        </div>
+                    </div>
+                    <div class="property-card">
+                        <div class="property-label">Perfect Number</div>
+                        <div class="property-value {{ 'true' if info.is_perfect else 'false' }}">
+                            {{ "Yes ✓" if info.is_perfect else "No ✗" }}
+                        </div>
+                    </div>
+                    <div class="property-card">
+                        <div class="property-label">Armstrong Number</div>
+                        <div class="property-value {{ 'true' if info.is_armstrong else 'false' }}">
+                            {{ "Yes ✓" if info.is_armstrong else "No ✗" }}
+                        </div>
+                    </div>
+                    <div class="property-card">
+                        <div class="property-label">Palindrome</div>
+                        <div class="property-value {{ 'true' if info.is_palindrome else 'false' }}">
+                            {{ "Yes ✓" if info.is_palindrome else "No ✗" }}
+                        </div>
+                    </div>
+                    <div class="property-card">
+                        <div class="property-label">Fibonacci Number</div>
+                        <div class="property-value {{ 'true' if info.is_fibonacci else 'false' }}">
+                            {{ "Yes ✓" if info.is_fibonacci else "No ✗" }}
+                        </div>
+                    </div>
+                    {% if info.is_fibonacci and info.fibonacci_position > 0 %}
+                    <div class="property-card">
+                        <div class="property-label">Fibonacci Position</div>
+                        <div class="property-value">{{ info.fibonacci_position }}</div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="section">
+                <h3>🔄 Number Conversions</h3>
+                <div class="conversions">
+                    <div class="conversion-card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                        <div class="conversion-label">Binary</div>
+                        <div class="conversion-value">{{ info.binary }}</div>
+                    </div>
+                    <div class="conversion-card" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                        <div class="conversion-label">Octal</div>
+                        <div class="conversion-value">{{ info.octal }}</div>
+                    </div>
+                    <div class="conversion-card" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                        <div class="conversion-label">Hexadecimal</div>
+                        <div class="conversion-value">{{ info.hexadecimal }}</div>
+                    </div>
+                    <div class="conversion-card" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">
+                        <div class="conversion-label">Roman</div>
+                        <div class="conversion-value">{{ info.roman }}</div>
+                    </div>
+                </div>
+            </div>
+
+            {% if info.factors %}
+            <div class="section">
+                <h3>🔢 Factors</h3>
+                <div class="factors-list">
+                    {% for factor in info.factors %}
+                    <span class="factor-badge">{{ factor }}</span>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+            {% if info.prime_factorization %}
+            <div class="section">
+                <h3>🧮 Prime Factorization</h3>
+                <div class="prime-factorization">
+                    {{ info.number }} = 
+                    {% for prime, power in info.prime_factorization.items() %}
+                        {{ prime }}{% if power > 1 %}<sup>{{ power }}</sup>{% endif %}
+                        {% if not loop.last %} × {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+            <div class="section">
+                <h3>📊 Additional Information</h3>
+                <div class="properties-grid">
+                    <div class="property-card">
+                        <div class="property-label">Absolute Value</div>
+                        <div class="property-value">{{ info.absolute }}</div>
+                    </div>
+                    <div class="property-card">
+                        <div class="property-label">Sum of Digits</div>
+                        <div class="property-value">{{ info.sum_of_digits }}</div>
+                    </div>
+                    <div class="property-card">
+                        <div class="property-label">Product of Digits</div>
+                        <div class="property-value">{{ info.product_of_digits }}</div>
+                    </div>
+                    <div class="property-card">
+                        <div class="property-label">Square (n²)</div>
+                        <div class="property-value">{{ info.square }}</div>
+                    </div>
+                    <div class="property-card">
+                        <div class="property-label">Cube (n³)</div>
+                        <div class="property-value">{{ info.cube }}</div>
+                    </div>
+                    <div class="property-card">
+                        <div class="property-label">Square Root (√n)</div>
+                        <div class="property-value">{{ info.square_root }}</div>
+                    </div>
+                </div>
+            </div>
+
+            {% if facts %}
+            <div class="section">
+                <h3>✨ Fun Facts</h3>
+                <ul class="facts-list">
+                    {% for fact in facts %}
+                    <li class="fact-item">{{ fact }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+
+            <div style="text-align: center;">
+                <a href="/" class="back-button">← Explore Another Number</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
